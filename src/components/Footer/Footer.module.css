@@ -1,0 +1,6 @@
+#footer {
+  padding: 10px;
+  background-color: rgb(17, 42, 54);
+  grid-area: footer;
+  color: aqua;
+}

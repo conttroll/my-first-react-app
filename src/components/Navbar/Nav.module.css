@@ -1,0 +1,25 @@
+.nav {
+    padding: 10px;
+    background-color: rgb(215, 219, 240);
+    grid-area: nav;
+  }
+  
+  .item {
+    display: block;
+    width: 100%;
+    font-size: 1.5em;
+    transition: .2s all;
+    background-color: rgb(190, 197, 235);
+    cursor: pointer;
+    margin-bottom: 3px;
+    text-align: start;
+  }
+  
+  .item:hover {
+    transform: translateX(4px);
+  }
+
+  a.active .item  {
+    background: rgb(36, 71, 116);
+    color: rgb(190, 197, 235);
+  }

@@ -1,0 +1,17 @@
+#header {
+    padding: 10px;
+    background: rgb(36, 71, 116);
+    grid-area: header;
+    display: flex;
+    align-items: center;
+}
+  
+#header img {
+    width: 100px;
+}
+
+#header span {
+    font-size: 2em;
+    color: aqua;
+    font-weight: 700;
+}

@@ -1,0 +1,8 @@
+.profileInfo {
+    height: 200px;
+    overflow: hidden;
+}
+
+.profileInfo img {
+    width: 100%;
+}
