@@ -4,26 +4,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Provider from "./StoreContext";
-import StoreContext from "./StoreContext";
+import {Provider} from "react-redux";
 
-let updateState = () => {
-    debugger
     ReactDOM.render(
-        <StoreContext.Provider value={store}>
+        <Provider store={store}>
             <React.StrictMode>
                 <App/>
             </React.StrictMode>
-        </StoreContext.Provider>,
+        </Provider>,
         document.getElementById('root')
     );
-}
 
-updateState();
-
-store.subscribe(() => {
-    updateState();
-})
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

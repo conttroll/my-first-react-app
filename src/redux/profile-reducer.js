@@ -11,10 +11,13 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
-        case ADD_POST:
+        case SET_NEW_POST_TEXT: {
+            return {
+                ...state,
+                newPostText: action.newText
+            }
+        }
+        case ADD_POST: {
             let newPost = {
                 id: 5,
                 message: state.newPostText,
@@ -22,11 +25,13 @@ const profileReducer = (state = initialState, action) => {
             }
 
             if (state.newPostText !== '') {
-                state.postsData.push(newPost);
+                return {
+                    ...state,
+                    postsData: [...state.postsData, newPost],
+                    newPostText: ''
+                }
             }
-
-            state.newPostText = '';
-            return state;
+        }
         default:
             return state;
     }
