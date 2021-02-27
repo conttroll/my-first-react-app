@@ -1,21 +1,25 @@
+import React from 'react';
 import s from '../Dialogs.module.css';
 
-const MessageInput = (props) => {
-    const writeNewMessageText = (e) => {
+class MessageInput extends React.Component {
+
+    writeNewMessageText = (e) => {
         let text = e.target.value;
-        props.writeNewMessageText(text);
+        this.props.writeNewMessageText(text);
     }
 
-    const sendMessage = () => {
-        props.sendMessage();
+    sendMessage = () => {
+        this.props.sendMessage();
     }
 
-    return (
-        <div className={s.messageInput}>
-            <textarea value={props.messageText} onChange={writeNewMessageText}></textarea>
-            <button onClick={sendMessage}>send</button>
-        </div>
-    )
+    render() {
+        return (
+            <div className={s.messageInput}>
+                <textarea value={this.props.messageText} onChange={this.writeNewMessageText}></textarea>
+                <button onClick={this.sendMessage}>send</button>
+            </div>
+        )
+    }
 }
 
 export default MessageInput;
