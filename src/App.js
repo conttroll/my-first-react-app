@@ -3,10 +3,10 @@ import Header from './components/Header/Header';
 import Nav from './components/Navbar/Navbar';
 import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
-import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 function App () {
   return (
@@ -20,6 +20,9 @@ function App () {
                   />
                   <Route path="/dialogs" render={ () =>
                       <DialogsContainer /> }
+                  />
+                  <Route path="/users" render={ () =>
+                      <UsersContainer /> }
                   />
                   <Route path="/News" render={() => <News />} />
               </div>

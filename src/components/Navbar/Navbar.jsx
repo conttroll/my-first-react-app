@@ -8,6 +8,7 @@ const Nav = () => {
             <NavLink to="/dialogs" activeClassName={s.active}><button className={s.item}>Dialogs</button></NavLink>
             <NavLink to="/news" activeClassName={s.active}><button className={s.item}>News</button></NavLink>
             <NavLink to="/music" activeClassName={s.active}><button className={s.item}>Music</button></NavLink>
+            <NavLink to="/users" activeClassName={s.active}><button className={s.item}>Users</button></NavLink>
         </nav>
     )
 }
