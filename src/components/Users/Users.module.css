@@ -8,3 +8,20 @@
     display: flex;
     margin: 20px;
 }
+
+.currentPage {
+    font-weight: 700;
+    background: aqua;
+}
+
+.pages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pages span {
+    cursor: pointer;
+    border: 1px solid blue;
+    padding: 3px;
+    margin: 3px;
+}
