@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer';
 import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
+import UsersContainerConnecter from "./components/Users/UsersContainer";
 
 function App () {
   return (
@@ -22,7 +22,7 @@ function App () {
                       <DialogsContainer /> }
                   />
                   <Route path="/users" render={ () =>
-                      <UsersContainer /> }
+                      <UsersContainerConnecter /> }
                   />
                   <Route path="/News" render={() => <News />} />
               </div>
