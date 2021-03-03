@@ -5,11 +5,8 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 const Main = (props) => {
     return (
         <section className={s.main}>
-            <ProfileInfo />
-            <MyPostsContainer
-                state={props.state}
-                store={props.store}
-            />
+            <ProfileInfo profile={props.profile} />
+            <MyPostsContainer />
         </section>
     )
 }

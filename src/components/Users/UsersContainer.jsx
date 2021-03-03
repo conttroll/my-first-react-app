@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchedAC,
-    unfollowAC
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetched,
+    unfollow
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
@@ -49,27 +49,13 @@ class UsersContainer extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (page) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        setTotalUsersCount: (count) => {
-            dispatch(setTotalUsersCountAC(count));
-        },
-        toggleIsFetched: (isFetched) => {
-            dispatch(toggleIsFetchedAC(isFetched));
-        }
-    }
+const mapDispatchToProps = {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetched
 }
 
 const mapStateToProps = (state) => {
@@ -82,6 +68,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const UsersContainerConnecter = connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
-
-export default UsersContainerConnecter;
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);;

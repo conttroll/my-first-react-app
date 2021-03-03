@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './Users.module.css';
 import userAva from '../../assets/images/user-img.png';
+import {NavLink} from "react-router-dom";
+import Preloader from "../Preloader/Preloader";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -11,7 +13,7 @@ const Users = (props) => {
     }
 
     return <>
-        { props.isFetched ? <div className={styles.ldsDualRing}></div> : null }
+        { props.isFetched ? <Preloader /> : null }
         <div className={styles.pages}>
             {pages.map(page => {
                 return <span className={props.currentPage === page && styles.currentPage} onClick={(e) => {props.onPageChanged(page)} }>{page}</span>
@@ -20,8 +22,10 @@ const Users = (props) => {
         {
             props.users.map(elem => {
                 return <div key={elem.id} className={styles.user}>
-                    <img className={styles.img} src={
-                        elem.photos.small !== null ? elem.photos.small : userAva } alt=""/>
+                    <NavLink to={`/profile/${elem.id}`} >
+                        <img className={styles.img} src={
+                            elem.photos.small !== null ? elem.photos.small : userAva } alt=""/>
+                    </NavLink>
                     <div>
                         <strong><span>{elem.name}</span></strong>
                         <div>elem.location.country</div>

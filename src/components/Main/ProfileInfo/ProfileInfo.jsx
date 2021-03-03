@@ -1,11 +1,17 @@
 import s from './ProfileInfo.module.css';
+import Preloader from "../../Preloader/Preloader";
 
 const ProfileInfo = (props) => {
+
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
     return (
         <div className={s.profileInfo}>
-            <img src="https://lh3.googleusercontent.com/KF5TmdjUPCvndLku3hQ250MPmgIZ6anA9BHwijI7kZI4q46oy03wTVJqMZjar8ppcMkrVzob37UffFPyHZRhwXeI_A=w640-h400-e365-rj-sc0x00ffffff"/>
-            <div>
-                ava + desc
+            <div key={props.profile.userId}>
+                <img src={props.profile.photos.large} alt=""/>
+                <div><strong>{props.profile.fullName}</strong></div>
             </div>
         </div>
     )
