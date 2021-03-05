@@ -4,6 +4,7 @@
     grid-area: header;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
   
 #header img {
@@ -12,6 +13,10 @@
 
 #header span {
     font-size: 2em;
-    color: aqua;
+    color: #b2bec3;
     font-weight: 700;
+}
+
+.login {
+    color: #b2bec3;
 }
