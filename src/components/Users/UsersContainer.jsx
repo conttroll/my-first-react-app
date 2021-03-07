@@ -9,29 +9,27 @@ import {
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
-import * as axios from "axios";
+import samuraiAPI from "../../api/api";
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetched(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
-            .then(response => {
+        samuraiAPI.getUsers(this.props.pageSize, this.props.currentPage)
+            .then(data => {
                 this.props.toggleIsFetched(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
             });
     }
 
     onPageChanged = (page) => {
         this.props.setCurrentPage(page);
         this.props.toggleIsFetched(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page}`)
-            .then(response => {
+        samuraiAPI.getUsers(this.props.pageSize, page)
+            .then(data => {
                 this.props.toggleIsFetched(false);
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             });
     }
 
@@ -68,4 +66,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);;
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+;
