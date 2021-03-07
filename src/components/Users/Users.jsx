@@ -4,6 +4,7 @@ import userAva from '../../assets/images/user-img.png';
 import {NavLink} from "react-router-dom";
 import Preloader from "../Preloader/Preloader";
 import samuraiAPI from "../../api/api";
+import {toggleIsFollowingProgress} from "../../redux/users-reducer";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -34,19 +35,23 @@ const Users = (props) => {
                         <div>elem.location.country</div>
                         <div>elem.location.city</div>
                         <div>
-                            {elem.followed ? <button onClick={() => {
+                            {elem.followed ? <button disabled={props.followingInProgress.some(id => id === elem.id)} onClick={() => {
+                                    props.toggleIsFollowingProgress(true, elem.id);
                                     samuraiAPI.unfollowAPI(elem.id)
                                         .then(data => {
                                             if (data.resultCode === 0) {
                                                 props.unfollow(elem.id)
+                                                props.toggleIsFollowingProgress(false, elem.id);
                                             }
                                         });
                                 }}>Unfollow</button>
-                                : <button onClick={() => {
+                                : <button disabled={props.followingInProgress.some(id => id === elem.id)} onClick={() => {
+                                    props.toggleIsFollowingProgress(true, elem.id);
                                     samuraiAPI.followAPI(elem.id)
                                         .then(data => {
                                             if (data.resultCode === 0) {
                                                 props.follow(elem.id)
+                                                props.toggleIsFollowingProgress(false, elem.id);
                                             }
                                         });
                                 }
