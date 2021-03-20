@@ -4,33 +4,21 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetched, toggleIsFollowingProgress,
-    unfollow
+    toggleIsFetched,
+    unfollow,
+    getUsers
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
-import samuraiAPI from "../../api/api";
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsFetched(true);
-        samuraiAPI.getUsers(this.props.pageSize, this.props.currentPage)
-            .then(data => {
-                this.props.toggleIsFetched(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.getUsers(this.props.pageSize, this.props.currentPage);
     }
 
     onPageChanged = (page) => {
-        this.props.setCurrentPage(page);
-        this.props.toggleIsFetched(true);
-        samuraiAPI.getUsers(this.props.pageSize, page)
-            .then(data => {
-                this.props.toggleIsFetched(false);
-                this.props.setUsers(data.items)
-            });
+        this.props.getUsers(this.props.pageSize, page);
     }
 
     render() {
@@ -44,7 +32,6 @@ class UsersContainer extends React.Component {
             unfollow={this.props.unfollow}
             isFetched={this.props.isFetched}
             followingInProgress={this.props.followingInProgress}
-            toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
         />
     }
 }
@@ -56,7 +43,7 @@ const mapDispatchToProps = {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetched,
-    toggleIsFollowingProgress
+    getUsers
 }
 
 const mapStateToProps = (state) => {
@@ -71,4 +58,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
-;

@@ -1,35 +1,39 @@
 import React from 'react';
-import * as axios from "axios";
 import Main from "./Main";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profile-reducer";
+import {setUserProfile, getProfile, getStatus, updateStatus} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
-import samuraiAPI from "../../api/api";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class MainContainer extends React.Component {
 
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2;
+            userId = 15533;
         }
-        samuraiAPI.getProfile(userId)
-            .then(data => {
-                this.props.setUserProfile(data)
-            });
+        this.props.getProfile(userId);
+        this.props.getStatus(userId);
     }
 
     render() {
         return (
-            <Main { ...this.props } profile={this.props.profile} />
+            <Main { ...this.props }
+                  status={this.props.status}
+                  profile={this.props.profile}
+                  updateStatus={this.props.updateStatus} />
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    profile: state.mainPage.userProfile
+    profile: state.mainPage.userProfile,
+    status: state.mainPage.profileStatus
 })
 
-const WithUrlDataContainerComponent = withRouter(MainContainer);
-
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+export default compose(
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus}),
+    withRouter,
+    withAuthRedirect
+)(MainContainer);

@@ -1,25 +1,30 @@
 import React from 'react';
 import s from '../Dialogs.module.css';
+import {Field, Form} from "react-final-form";
+import {sendMessageAC} from "../../../redux/dialogs-reducer";
 
 class MessageInput extends React.Component {
-
-    writeNewMessageText = (e) => {
-        let text = e.target.value;
-        this.props.writeNewMessageText(text);
-    }
-
-    sendMessage = () => {
-        this.props.sendMessage();
-    }
-
     render() {
         return (
             <div className={s.messageInput}>
-                <textarea value={this.props.messageText} onChange={this.writeNewMessageText}></textarea>
-                <button onClick={this.sendMessage}>send</button>
+                <AddMessageForm sendMessage={this.props.sendMessage} />
             </div>
         )
     }
+}
+
+const AddMessageForm = (props) => {
+    return (
+        <Form
+            onSubmit={(values) => props.sendMessage(values.newMessageBody)}
+            render={({ handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                    <Field name="newMessageBody" component="textarea" />
+                    <div><button type="submit">send</button></div>
+                </form>
+            )}>
+        </Form>
+    )
 }
 
 export default MessageInput;

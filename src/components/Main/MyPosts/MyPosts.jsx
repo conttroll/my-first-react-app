@@ -1,16 +1,14 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {Field, Form} from "react-final-form";
+import {composeValidators, maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../../common/FormControls/FormControls";
 
 class MyPosts extends React.Component {
 
-    addNewPost = () => {
-        this.props.addNewPost();
-    }
-
-    setNewPostText = (e) => {
-        const text = e.target.value;
-        this.props.setNewPostText(text);
+    addNewPost = (newPostText) => {
+        this.props.addNewPost(newPostText);
     }
 
     render() {
@@ -23,8 +21,7 @@ class MyPosts extends React.Component {
         return (
             <div>
                 <div>
-                    <textarea value={this.props.mainPage.newPostText} onChange={this.setNewPostText} />
-                    <button onClick={ this.addNewPost }>Add post</button>
+                    <AddNewPost addNewPost={this.addNewPost} />
                 </div>
                 <div className={s.posts}>
                     {posts}
@@ -32,6 +29,21 @@ class MyPosts extends React.Component {
             </div>
         )
     }
+}
+
+const AddNewPost = (props) => {
+    const maxLength20 = maxLengthCreator(20);
+    return (
+        <Form
+            onSubmit={(values, form, callback) => props.addNewPost(values.newPostText)}
+            render={({ handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                    <Field component={Textarea} name="newPostText" validate={composeValidators(required, maxLength20)} />
+                    <div><button>add</button></div>
+                </form>
+            )}>
+        </Form>
+    )
 }
 
 export default MyPosts;

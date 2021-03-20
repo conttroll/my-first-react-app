@@ -10,39 +10,23 @@ let initialState = {
     messagesData: [
         {id: 1, msg: "Hello"},
         {id: 2, msg: "How are you"},
-    ],
-    messageText: 'message',
+    ]
 };
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case WRITE_NEW_MESSAGE_TEXT: {
-            return {
-                ...state,
-                messageText: action.newMessage
-            }
-        }
         case SEND_MESSAGE: {
-            let message = {
-                id: 3,
-                msg: state.messageText
-            }
-            if (state.messageText !== '') {
+            let body = action.newMessageBody;
                 return {
                     ...state,
-                    messagesData: [...state.messagesData, message],
-                    messageText: ''
+                    messagesData: [...state.messagesData, { id: 3, msg: body }],
                 }
-            }
         }
         default:
             return state;
     }
 }
 
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE })
-export const writeNewMessageTextActionCreator = (text) => (
-    {type: WRITE_NEW_MESSAGE_TEXT, newMessage: text}
-)
+export const sendMessageAC = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody });
 
 export default dialogsReducer;

@@ -1,23 +1,16 @@
 import React from 'react';
 import Header from "./Header";
-import {setUserData} from "../../redux/auth-reducer";
+import {logout, setUserData} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
-import samuraiAPI from "../../api/api";
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
-        samuraiAPI.getLogin()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    const {id, email, login} = data.data;
-                    this.props.setUserData(id, email, login);
-                }
-            });
+        this.props.setUserData();
     }
 
     render() {
         return (
-            <Header { ...this.props } />
+            <Header { ...this.props } logout={this.props.logout} />
         )
     }
 }
@@ -27,4 +20,4 @@ export const mapStateToProps = (state) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, { setUserData })(HeaderContainer);
+export default connect(mapStateToProps, { setUserData, logout })(HeaderContainer);

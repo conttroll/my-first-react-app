@@ -37,7 +37,32 @@ const samuraiAPI = {
         return axiosInstance
             .get(`auth/me`)
             .then(response => response.data);
+    },
+
+    getStatus(userId) {
+        return axiosInstance
+            .get(`profile/status/${userId}`)
+            .then(response => response.data);
+    },
+
+    updateStatus(status) {
+        return axiosInstance
+            .put(`profile/status`, { status: status })
+            .then(response => response.data);
+    },
+
+    login(email, password, rememberMe = false) {
+        return axiosInstance
+            .post('auth/login', {email, password, rememberMe})
+            .then(response => response.data);
+    },
+
+    logout() {
+        return axiosInstance
+            .delete('auth/login')
+            .then(response => response.data);
     }
+
 }
 
 export default samuraiAPI;
